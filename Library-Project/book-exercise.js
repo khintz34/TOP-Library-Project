@@ -1,70 +1,102 @@
+// setting library with Test data just as a starting point
 let library = [
     {title: 'test Title',
      author: 'test Author',
      pages: 500,
      read: true
-}
-];
+    }
+]
+
+//manually adding books. Eventually I will create a form that the user will fill out 
+// and then use that to push into library
 let book1 = new book('God', 'The Bible', '1000', 'have');
-let book2 = new book('Kevin', 'Year Three', '52', 'have');
-let book3 = new book('John Grisham', 'Waiting Game', 300, 'have not');
+let book2 = new book('David Dunk', 'Sarcrifce', '88', 'have');
+let book3 = new book('Mrs. Rogers', 'Sleeping in Class', 300, 'have not');
+
+// Basic Variables/Counters/etc
 let cellCounter = 0;
 let columnCounter = 0;
 let rowCounter = 0;
+let size = library.length;
 const libraryDiv = document.getElementById("libraryDiv");
 const libraryTable = document.getElementById("libraryTable");
+
+
+// Have you used this before? I was using Next.value below to iterate through but I dont think its 
+//the best way 
 let iterator = library.values();
 
 
-
+// function that puts into object
 function book(author, title, pages, status) {
     this.author = author;
     this.title = title;
     this.pages = pages;
     this.status = status;
-    this.info = function() {
-        return(`${title} by ${author} is ${pages} pages long and I ${status} read this book.`)
-    }
 }
 
-//const createNewBook = new book(author, title, pages, status);
 
+//function that adds objects into the array
+function addBookToLibrary(books) {
+    library.push(books);
+    size = library.length;
+}
 
+// This is the main function that I am trying to use to print the Library array 
+// onto the screen. 
 function printArray() {
     for (let j = 0; j < library.length; j++ ) {
         
-//        const row = document.createElement('div');
+       const row = document.createElement('tr');
+       const td = document.createElement('td');
+       td.classList.add('testingClass');
+//       WTF.innerHTML='testing???';
+//       console.log(td);
+       libraryTable.appendChild(td);
 //        row.classList.add('rowTest');
 //        const rowTest = document.querySelector('.rowTest');
 //        row.innerHTML = JSON.stringify(iterator.next().value);
-//        console.log(row);
         console.table(library[j]);
         libraryTable.innerHTML += JSON.stringify(library[j], null, 4);
-//        console.log(rowTest);
-//        libraryTable.appenndChild(row);
-        
-//        document.getElementById('libraryTable').innerHTML = JSON.stringify(library);
+        countCells();
 
-        rowCounter++;
     }
 }
 
+function countCells() {
+     if (columnCounter <= 3) {
+         columnCounter++;
+     } else {
+         columnCounter = 1;
+         rowCounter++;
+     }   
+     cellCounter++;  
+ }
 
+// manually calling function to add to Library
 addBookToLibrary(book1);
 addBookToLibrary(book2);
 addBookToLibrary(book3);
-console.log(JSON.stringify(library));
+
+//calling main function
 printArray();
 
 
-let size = library.length;
+
+//console.logs for testing/debugging 
+console.log(JSON.stringify(library));
+console.log(Object.keys(library));
 console.log(size);
 
 
 
-function addBookToLibrary(books) {
-    library.push(books);
-}
+
+////////////////************************************************************** */
+//BELOW THIS LINE ARE SOME OF THE THINGS I WAS TRYING. I LEFT FOR A REFERENCE TO LOOK AT. 
+
+
+//const createNewBook = new book(author, title, pages, status);
+
 
 //makeGrid(size);
 // //make grid 
@@ -88,15 +120,7 @@ function addBookToLibrary(books) {
 // }
 // }
 
-// function countCells() {
-//     if (columnCounter <= 3) {
-//         columnCounter++;
-//     } else {
-//         columnCounter = 1;
-//         rowCounter++;
-//     }   
-//     cellCounter++;  
-// }
+
 
 
 
